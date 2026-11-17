@@ -16,7 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->string('file_path');
-            $tab
+            $table->unsignedInteger('page_count')->default(1);
+            $table->unsignedBigInteger('file_size')->default(0);
+            $table->longText('extracted_text')->nullable();
             $table->timestamps();
         });
     }
