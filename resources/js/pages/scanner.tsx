@@ -36,11 +36,12 @@ interface ScannedPage {
 interface Props {
     scans: ScanRecord[];
     filters: { search?: string | null };
+    userName?: string;
 }
 
 type FilterMode = 'bw' | 'grayscale' | 'color' | 'original';
 
-export default function ScannerPage({ scans = [], filters = {} }: Props) {
+export default function ScannerPage({ scans = [], filters = {}, userName }: Props) {
     // Acquisition & éditeur
     const [mode, setMode] = useState<'upload' | 'camera'>('upload');
     const [rawImage, setRawImage] = useState<string | null>(null);
@@ -351,6 +352,18 @@ export default function ScannerPage({ scans = [], filters = {} }: Props) {
                         >
                             <Camera className="h-4 w-4" /> Caméra
                         </button>
+
+                        {userName && (
+                            <div className="ml-3 flex items-center gap-3 border-l border-slate-200 pl-3">
+                                <span className="text-xs font-medium text-slate-600">{userName}</span>
+                                <button
+                                    onClick={() => router.post('/logout')}
+                                    className="rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:bg-red-50 hover:text-red-600"
+                                >
+                                    Déconnexion
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </header>
